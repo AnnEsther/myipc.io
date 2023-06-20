@@ -51,7 +51,6 @@ function IPCSprite(props) {
 
   const Container = styled('div')(style.container);
   const Image = styled('img')(style.image);
-  const Headshot = styled('img')(style.image);
   const ImageType = styled('img')(style.image_type);
 
   const image_filename = config.public_url + "sprites/" + props.filename;
@@ -60,9 +59,7 @@ function IPCSprite(props) {
 
   return (
     <Container>
-      
-        <Headshot src={headshot_filename}/>
-      
+      <Image src={headshot_filename}/>
       <Image src={image_filename} />
       <ImageType src={image_type_filename} />
     </Container>
