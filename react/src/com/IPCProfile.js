@@ -66,9 +66,9 @@ function IPCSprite(props) {
 
   return (
     <Container>
-      {visible && (
+      
         <Headshot onClick={removeElement} src={headshot_filename}/>
-      )}
+      
       <Image src={image_filename} />
       <ImageType src={image_type_filename} />
     </Container>
