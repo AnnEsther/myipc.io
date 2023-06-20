@@ -58,16 +58,10 @@ function IPCSprite(props) {
   const image_type_filename = config.public_url + "assets/8-bit.png";
   const headshot_filename = config.public_url + "headshots/" + props.filename;
 
-  const [visible, setVisible] = useState(true);
-
-  const removeElement = () => {
-    setVisible((prev) => !prev);
-  };
-
   return (
     <Container>
       
-        <Headshot onClick={removeElement} src={headshot_filename}/>
+        <Headshot src={headshot_filename}/>
       
       <Image src={image_filename} />
       <ImageType src={image_type_filename} />
