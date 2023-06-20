@@ -51,13 +51,24 @@ function IPCSprite(props) {
 
   const Container = styled('div')(style.container);
   const Image = styled('img')(style.image);
+  const Headshot = styled('img')(style.image);
   const ImageType = styled('img')(style.image_type);
 
   const image_filename = config.public_url + "sprites/" + props.filename;
   const image_type_filename = config.public_url + "assets/8-bit.png";
+  const headshot_filename = config.public_url + "headshots/" + props.filename;
+
+  const [visible, setVisible] = useState(true);
+
+  const removeElement = () => {
+    setVisible((prev) => !prev);
+  };
 
   return (
     <Container>
+      {visible && (
+        <Headshot onClick={removeElement} src={headshot_filename}/>
+      )}
       <Image src={image_filename} />
       <ImageType src={image_type_filename} />
     </Container>
