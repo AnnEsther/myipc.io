@@ -59,7 +59,7 @@ function IPCSprite(props) {
 
   return (
     <Container>
-      <Image src={headshot_filename} onclick={
+      <Image src={headshot_filename} onClick={
         () => {
           console.log("Click registered! ");
       }}/>
