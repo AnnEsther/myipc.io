@@ -59,11 +59,16 @@ function IPCSprite(props) {
 
   return (
     <Container>
-      <Image src={headshot_filename}/>
+      <Image src={headshot_filename} onclick="myFunction()"/>
       <Image src={image_filename} />
       <ImageType src={image_type_filename} />
     </Container>
   );
+}
+
+function myFunction()
+{
+  console.log("Click registered! ");
 }
 
 function IPCEconomics(props)
