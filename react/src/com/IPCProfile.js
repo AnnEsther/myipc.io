@@ -53,9 +53,9 @@ function IPCSprite(props) {
   const Image = styled('img')(style.image);
   const ImageType = styled('img')(style.image_type);
 
-  const image_filename = config.public_url + "sprites/" + props.filename;
+  const image_filename = config.public_url + "sprites/" + props.filename + ".gif";
   const image_type_filename = config.public_url + "assets/8-bit.png";
-  const headshot_filename = config.public_url + "headshots/" + props.filename;
+  const headshot_filename = config.public_url + "headshots/" + props.filename + ".jpg";
 
   return (
     <Container>
@@ -266,7 +266,7 @@ export default function IPCProfile(props) {
       <HiddenClipboardInput />
 
       <Box sx={style.columnLeft}>
-      <IPCSprite filename={ipc.token_id + ".gif"} />
+      <IPCSprite filename={ipc.token_id} />
       <T sx={style.caption}>#{ipc.token_id} - {label_ipc.name}</T>
       </Box>
 
