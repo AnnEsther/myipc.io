@@ -49,10 +49,6 @@ function IPCSprite(props) {
     }
   };
 
-  const myFunction = () => {
-    console.log("Click registered! ");
-  };
-
   const Container = styled('div')(style.container);
   const Image = styled('img')(style.image);
   const ImageType = styled('img')(style.image_type);
@@ -63,7 +59,10 @@ function IPCSprite(props) {
 
   return (
     <Container>
-      <Image src={headshot_filename} onclick={myFunction}/>
+      <Image src={headshot_filename} onclick={
+        () => {
+          console.log("Click registered! ");
+      }}/>
       <Image src={image_filename} />
       <ImageType src={image_type_filename} />
     </Container>
