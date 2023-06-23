@@ -49,6 +49,10 @@ function IPCSprite(props) {
     }
   };
 
+  const myFunction = () => {
+    console.log("Click registered! ");
+  };
+
   const Container = styled('div')(style.container);
   const Image = styled('img')(style.image);
   const ImageType = styled('img')(style.image_type);
@@ -66,9 +70,7 @@ function IPCSprite(props) {
   );
 }
 
-const myFunction = () => {
-  console.log("Click registered! ");
-};
+
 
 function IPCEconomics(props)
 {
