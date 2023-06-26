@@ -78,8 +78,11 @@ function IPCSprite(props) {
       <IPCHeadshot id={"IPCProfileImage"} src={headshot_filename} onClick={
         () => {
           document.getElementById("IPCProfileImage").src=image_filename;
-          document.getElementById("IPCProfileImage").style = style.image;
-      }}/>
+
+          var el = document.querySelector('#IPCProfileImage');
+          el.outerHTML = '<IPCImage>' + el.innerHTML + '</IPCImage>';
+          
+      }}></IPCHeadshot>
       <ImageType src={image_type_filename} />
     </Container>
   );
