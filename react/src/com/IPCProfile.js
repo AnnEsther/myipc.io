@@ -59,9 +59,10 @@ function IPCSprite(props) {
 
   return (
     <Container>
-      <Image src={headshot_filename} onClick={
+      <Image id={"IPCProfileImage"} src={headshot_filename} onClick={
         () => {
-          console.log("Click registered! ");
+          console.log("Click registered! " + image_filename);
+          document.getElementById("IPCProfileImage").src=image_filename;
       }}/>
       <Image src={image_filename} />
       <ImageType src={image_type_filename} />
