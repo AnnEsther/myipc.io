@@ -51,11 +51,17 @@ function IPCSprite(props) {
     },
 
     headshot: {
-      width: '100%'
+      width: '100%',
+      position: 'absolute'
+    },
+
+    wrapper: {
+      position: relative
     }
   };
 
   const Container = styled('div')(style.container);
+  const Wrapper = styled('div')(style.wrapper);
   const IPCImage = styled('img')(style.image);
   const IPCHeadshot = styled('img')(style.headshot);
   const ImageType = styled('img')(style.image_type);
@@ -75,14 +81,17 @@ function IPCSprite(props) {
 
   return (
     <Container>
-      <IPCHeadshot id={"IPCProfileImage"} src={headshot_filename} onClick={
-        () => {
-          document.getElementById("IPCProfileImage").src=image_filename;
+      <Wrapper>
+        <IPCHeadshot id={"IPCProfileImage"} src={headshot_filename} onClick={
+          () => {
+            document.getElementById("IPCProfileImage").src=image_filename;
 
-          var el = document.querySelector('#IPCProfileImage');
-          el.outerHTML = '<IPCImage>' + el.innerHTML + '</IPCImage>';
-          
-      }}></IPCHeadshot>
+            document.getElementById("IPCProfileImage").style.marginTop = style.image.marginTop;
+            document.getElementById("IPCProfileImage").style.width = style.image.width;
+            document.getElementById("IPCProfileImage").style.imageRendering = style.image.imageRendering;
+        }}/>
+        <IPCImage src={image_filename} />
+      </Wrapper>
       <ImageType src={image_type_filename} />
     </Container>
   );
