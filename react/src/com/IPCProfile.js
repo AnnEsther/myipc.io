@@ -51,7 +51,7 @@ function IPCSprite(props) {
   };
 
   const Container = styled('div')(style.container);
-  const Image = styled('img')(style.image);
+  const IPCImage = styled('img')(style.image);
   const ImageType = styled('img')(style.image_type);
 
   const image_filename = config.public_url + "sprites/" + props.filename + ".gif";
@@ -79,7 +79,7 @@ function IPCSprite(props) {
   {
     return (
       <Container>
-        <Image src={image_filename}/>
+        <IPCImage src={image_filename}/>
         <ImageType src={image_type_filename} />
       </Container>
     );
@@ -87,7 +87,7 @@ function IPCSprite(props) {
   else{
     return (
       <Container>
-        <Image id={"IPCProfileImage"} src={headshot_filename} onClick={
+        <IPCImage id={"IPCProfileImage"} src={headshot_filename} onClick={
           () => {
             document.getElementById("IPCProfileImage").src=image_filename;
         }}/>
