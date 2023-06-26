@@ -63,38 +63,27 @@ function IPCSprite(props) {
   img.onload = function(){ 
 
     console.log("good"); 
-    headshot_filename = img.src;
+    //document.getElementById("IPCProfileImage").src = headshot_filename;
     
   }; 
 
   img.onerror = function(){
 
     console.log("bad");
-    headshot_filename = image_filename;
+    document.getElementById("IPCProfileImage").src = image_filename;
   } ;
 
   img.src = config.public_url + "headshots/" + props.filename + ".jpg";
 
-  if(headshot_filename == image_filename)
-  {
-    return (
-      <Container>
-        <IPCImage src={image_filename}/>
-        <ImageType src={image_type_filename} />
-      </Container>
-    );
-  }
-  else{
-    return (
-      <Container>
-        <IPCImage id={"IPCProfileImage"} src={headshot_filename} onClick={
-          () => {
-            document.getElementById("IPCProfileImage").src=image_filename;
-        }}/>
-        <ImageType src={image_type_filename} />
-      </Container>
-    );
-  }
+  return (
+    <Container>
+      <IPCImage id={"IPCProfileImage"} src={headshot_filename} onClick={
+        () => {
+          document.getElementById("IPCProfileImage").src=image_filename;
+      }}/>
+      <ImageType src={image_type_filename} />
+    </Container>
+  );
   
 }
 
