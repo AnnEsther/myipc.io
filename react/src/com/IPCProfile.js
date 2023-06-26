@@ -23,6 +23,13 @@ import config from '../config';
 
 const IPCContext = IPCInstance.IPCContext;
 
+function checkImage(imageSrc, good, bad) {
+  var img = new Image();
+  img.onload = good; 
+  img.onerror = bad;
+  img.src = imageSrc;
+}
+
 function IPCSprite(props) {
 
   const style = {
@@ -57,14 +64,21 @@ function IPCSprite(props) {
   const image_type_filename = config.public_url + "assets/8-bit.png";
   const headshot_filename = config.public_url + "headshots/" + props.filename + ".jpg";
 
+  checkImage(headshot_filename, 
+              function(){ 
+                console.log("good"); 
+              }, 
+              function(){
+                headshot_filename = image_filename;
+              } );
+
+
   return (
     <Container>
       <Image id={"IPCProfileImage"} src={headshot_filename} onClick={
         () => {
-          console.log("Click registered! " + image_filename);
           document.getElementById("IPCProfileImage").src=image_filename;
       }}/>
-      <Image src={image_filename} />
       <ImageType src={image_type_filename} />
     </Container>
   );
