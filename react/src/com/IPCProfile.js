@@ -62,7 +62,7 @@ function IPCSprite(props) {
 
   const image_filename = config.public_url + "sprites/" + props.filename + ".gif";
   const image_type_filename = config.public_url + "assets/8-bit.png";
-  const headshot_filename = config.public_url + "headshots/" + props.filename + ".jpg";
+  var headshot_filename = config.public_url + "headshots/" + props.filename + ".jpg";
 
   checkImage(headshot_filename, 
               function(){ 
