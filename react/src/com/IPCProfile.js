@@ -23,12 +23,6 @@ import config from '../config';
 
 const IPCContext = IPCInstance.IPCContext;
 
-function checkImage(imageSrc, good, bad) {
-  var img = new Image();
-  img.onload = good; 
-  img.onerror = bad;
-  img.src = imageSrc;
-}
 
 function IPCSprite(props) {
 
@@ -64,24 +58,44 @@ function IPCSprite(props) {
   const image_type_filename = config.public_url + "assets/8-bit.png";
   var headshot_filename = config.public_url + "headshots/" + props.filename + ".jpg";
 
-  checkImage(headshot_filename, 
-              function(){ 
-                console.log("good"); 
-              }, 
-              function(){
-                headshot_filename = image_filename;
-              } );
+  var img = new Image();
 
+  img.onload = function(){ 
 
-  return (
-    <Container>
-      <Image id={"IPCProfileImage"} src={headshot_filename} onClick={
-        () => {
-          document.getElementById("IPCProfileImage").src=image_filename;
-      }}/>
-      <ImageType src={image_type_filename} />
-    </Container>
-  );
+    console.log("good"); 
+    headshot_filename = img.src;
+    
+  }; 
+
+  img.onerror = function(){
+
+    console.log("bad");
+    headshot_filename = image_filename;
+  } ;
+
+  img.src = config.public_url + "headshots/" + props.filename + ".jpg";
+
+  if(headshot_filename == image_filename)
+  {
+    return (
+      <Container>
+        <Image src={image_filename}/>
+        <ImageType src={image_type_filename} />
+      </Container>
+    );
+  }
+  else{
+    return (
+      <Container>
+        <Image id={"IPCProfileImage"} src={headshot_filename} onClick={
+          () => {
+            document.getElementById("IPCProfileImage").src=image_filename;
+        }}/>
+        <ImageType src={image_type_filename} />
+      </Container>
+    );
+  }
+  
 }
 
 
