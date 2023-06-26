@@ -34,7 +34,8 @@ function IPCSprite(props) {
       height: '250px',
       backgroundColor: '#aaaabb',
       borderRadius: '100%',
-      textAlign: 'center'
+      textAlign: 'center',
+      overflow: 'hidden'
     },
 
     image: {
@@ -47,11 +48,16 @@ function IPCSprite(props) {
       position: 'relative',
       bottom: '16px',
       left: '4px'
+    },
+
+    headshot: {
+      width: '100%'
     }
   };
 
   const Container = styled('div')(style.container);
   const IPCImage = styled('img')(style.image);
+  const IPCHeadshot = styled('img')(style.headshot);
   const ImageType = styled('img')(style.image_type);
 
   const image_filename = config.public_url + "sprites/" + props.filename + ".gif";
@@ -60,26 +66,19 @@ function IPCSprite(props) {
 
   var img = new Image();
 
-  img.onload = function(){ 
-
-    console.log("good"); 
-    //document.getElementById("IPCProfileImage").src = headshot_filename;
-    
-  }; 
-
   img.onerror = function(){
-
-    console.log("bad");
     document.getElementById("IPCProfileImage").src = image_filename;
+    document.getElementById("IPCProfileImage").style = style.image;
   } ;
 
   img.src = config.public_url + "headshots/" + props.filename + ".jpg";
 
   return (
     <Container>
-      <IPCImage id={"IPCProfileImage"} src={headshot_filename} onClick={
+      <IPCHeadshot id={"IPCProfileImage"} src={headshot_filename} onClick={
         () => {
           document.getElementById("IPCProfileImage").src=image_filename;
+          document.getElementById("IPCProfileImage").style = style.image;
       }}/>
       <ImageType src={image_type_filename} />
     </Container>
