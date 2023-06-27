@@ -51,8 +51,7 @@ function IPCSprite(props) {
     },
 
     headshot: {
-      width: '100%',
-      position: 'absolute'
+      width: '100%'
     },
 
     wrapper: {
@@ -83,14 +82,10 @@ function IPCSprite(props) {
     <Container>
       <Wrapper>
 
-      <IPCHeadshot id={"IPCProfileImage"} src={headshot_filename} onClick={
-          () => {
-            document.getElementById("IPCProfileImage").src=image_filename;
-
-            document.getElementById("IPCProfileImage").style.marginTop = style.image.marginTop;
-            document.getElementById("IPCProfileImage").style.width = style.image.width;
-            document.getElementById("IPCProfileImage").style.imageRendering = style.image.imageRendering;
-        }}/>
+        <IPCHeadshot id={"IPCProfileImage"} src={headshot_filename} onClick={
+            () => {
+              document.getElementById("IPCProfileImage").style.display = "none";
+          }}/>
         <IPCImage src={image_filename} />
 
       </Wrapper>
