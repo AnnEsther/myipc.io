@@ -72,8 +72,7 @@ function IPCSprite(props) {
   var img = new Image();
 
   img.onerror = function(){
-    document.getElementById("IPCProfileImage").src = image_filename;
-    document.getElementById("IPCProfileImage").style = style.image;
+    document.getElementById("IPCProfileImage").style.display = "none";
   } ;
 
   img.src = config.public_url + "headshots/" + props.filename + ".jpg";
