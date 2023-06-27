@@ -56,7 +56,7 @@ function IPCSprite(props) {
     },
 
     wrapper: {
-      position: relative
+      position: 'relative'
     }
   };
 
@@ -81,8 +81,9 @@ function IPCSprite(props) {
 
   return (
     <Container>
-     
-        <IPCHeadshot id={"IPCProfileImage"} src={headshot_filename} onClick={
+      <Wrapper>
+
+      <IPCHeadshot id={"IPCProfileImage"} src={headshot_filename} onClick={
           () => {
             document.getElementById("IPCProfileImage").src=image_filename;
 
@@ -91,7 +92,8 @@ function IPCSprite(props) {
             document.getElementById("IPCProfileImage").style.imageRendering = style.image.imageRendering;
         }}/>
         <IPCImage src={image_filename} />
-     
+
+      </Wrapper>
       <ImageType src={image_type_filename} />
     </Container>
   );
