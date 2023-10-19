@@ -163,6 +163,59 @@ function getSearchWalletListener(navigate, wallet_address) {
   });
 }
 
+const emails = ['username@gmail.com', 'user02@gmail.com'];
+
+function SimpleDialog(props) {
+  const { onClose, selectedValue, open } = props;
+
+  const handleClose = () => {
+    onClose(selectedValue);
+  };
+
+  const handleListItemClick = (value) => {
+    onClose(value);
+  };
+
+  return (
+    <Dialog onClose={handleClose} open={open}>
+      <DialogTitle>Set backup account</DialogTitle>
+      <List sx={{ pt: 0 }}>
+        {emails.map((email) => (
+          <ListItem disableGutters key={email}>
+            <ListItemButton onClick={() => handleListItemClick(email)}>
+              <ListItemAvatar>
+                <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
+                  <PersonIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary={email} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+        <ListItem disableGutters>
+          <ListItemButton
+            autoFocus
+            onClick={() => handleListItemClick('addAccount')}
+          >
+            <ListItemAvatar>
+              <Avatar>
+                <AddIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary="Add account" />
+          </ListItemButton>
+        </ListItem>
+      </List>
+    </Dialog>
+  );
+}
+
+SimpleDialog.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  selectedValue: PropTypes.string.isRequired,
+};
+
 export default function IPCProfile(props) {
 
   const instance = React.useContext(IPCContext);;
@@ -181,6 +234,21 @@ export default function IPCProfile(props) {
   const handleTipClose = () => {
     setTipOpen(false);
   };
+
+  //AI S1 button
+
+  const [popupOpen, setPopupOpen] = React.useState(false);
+  const [selectedValue, setSelectedValue] = React.useState(emails[1]); //to be removed
+
+  const handlePopupOpen = () => {
+    setPopupOpen(true);
+  };
+
+  const handlePopupClose = (value) => {
+    setPopupOpen(false);
+    setSelectedValue(value);
+  };
+
 
   const style = {
     hidden_clipboard_input: {
@@ -324,6 +392,16 @@ export default function IPCProfile(props) {
 
       </Tooltip>
       </ClickAwayListener>
+
+      <Button variant="outlined" onClick={handlePopupOpen}>
+        Open simple dialog
+      </Button>
+      <SimpleDialog
+        selectedValue={selectedValue}
+        open={popupOpen}
+        onClose={handlePopupClose}
+      />
+
       </Box>
     </Box>
     </Container>
