@@ -350,7 +350,7 @@ export default function IPCProfile(props) {
       <Dialog
         onClose={handleClosePopup}
         aria-labelledby="customized-dialog-title"
-        open={open}
+        open={openPopup}
         maxWidth="sm"
       >
         <DialogContent style={{ overflow: "hidden" }}>
