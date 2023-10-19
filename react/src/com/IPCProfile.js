@@ -21,10 +21,11 @@ import IPCWalletUI from '../lib/IPCWalletUI';
 import IPCInstance from '../lib/IPCInstance';
 import config from '../config';
 
-import PropTypes from 'prop-types';
-import Dialog from '@mui/material/Dialog';
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
 
-import Paper from '@mui/material/Paper';
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 const IPCContext = IPCInstance.IPCContext;
 
@@ -168,33 +169,6 @@ function getSearchWalletListener(navigate, wallet_address) {
   });
 }
 
-const emails = ['username@gmail.com', 'user02@gmail.com'];
-
-function SimpleDialog(props) {
-  const { onClose, open, fileName } = props;
-  const imgPath = "https://github.com/AnnEsther/IPC_Headshots/blob/main/Output/" + fileName + ".png?raw=true";
-
-  const handleListItemClick = (value) => {
-    onClose(value);
-  };
-
-  return (
-    <Dialog open={open}>
-      <Box>
-      <Paper>
-        <img src={imgPath}/>
-      </Paper>
-      </Box>
-    </Dialog>
-  );
-}
-
-SimpleDialog.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  fileName: PropTypes.string.isRequired,
-};
-
 export default function IPCProfile(props) {
 
   const instance = React.useContext(IPCContext);;
@@ -214,18 +188,16 @@ export default function IPCProfile(props) {
     setTipOpen(false);
   };
 
-  //AI S1 button
+  //ai popup Popup
 
-  const [popupOpen, setPopupOpen] = React.useState(false);
+  const [openPopup, setOpenPopup] = React.useState(false);
 
-  const handlePopupOpen = () => {
-    setPopupOpen(true);
+  const handleClickOpenPopup = () => {
+    setOpenPopup(true);
   };
-
-  const handlePopupClose = () => {
-    setPopupOpen(false);
+  const handleClosePopup = () => {
+    setOpenPopup(false);
   };
-
 
   const style = {
     hidden_clipboard_input: {
@@ -304,6 +276,8 @@ export default function IPCProfile(props) {
 
   const HiddenClipboardInput = styled(ClipboardInput)(style.hidden_clipboard_input);
 
+  const aiImageUrl = "https://github.com/AnnEsther/IPC_Headshots/blob/main/Output/"+ipc.token_id+".png?raw=true";
+
   return (
     <Container sx={style.container}>
       <HiddenClipboardInput />
@@ -370,18 +344,32 @@ export default function IPCProfile(props) {
       </Tooltip>
       </ClickAwayListener>
 
-      <Button 
-        variant="contained" 
-        onClick={handlePopupOpen}
-        sx={{margin: '8px 4px'}}>
+      <Button variant="contained" onClick={handleClickOpenPopup} sx={{margin: '8px 4px'}}>
         IPC.AI.S1
       </Button>
-      <SimpleDialog
-        fileName={ipc.token_id}
-        open={popupOpen}
-        onClose={handlePopupClose}
-      />
+      <Dialog
+        onClose={handleClosePopup}
+        aria-labelledby="customized-dialog-title"
+        open={open}
+        maxWidth="sm"
+      >
+        <DialogContent style={{ overflow: "hidden" }}>
+            <IconButton
+              aria-label="close"
+              onClick={handleClosePopup}
+              sx={{
+                position: "absolute",
+                right: 8,
+                top: 8,
+                color: (theme) => theme.palette.grey[500]
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+            <img style={{height: "100%" }} src={aiImageUrl}/>
 
+        </DialogContent>
+      </Dialog>
       </Box>
     </Box>
     </Container>
