@@ -22,7 +22,6 @@ import IPCInstance from '../lib/IPCInstance';
 import config from '../config';
 
 import PropTypes from 'prop-types';
-import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
