@@ -222,9 +222,8 @@ export default function IPCProfile(props) {
     setPopupOpen(true);
   };
 
-  const handlePopupClose = (value) => {
+  const handlePopupClose = () => {
     setPopupOpen(false);
-    setSelectedValue(value);
   };
 
 
