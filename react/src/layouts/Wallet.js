@@ -170,6 +170,10 @@ export default function IPCWallet(props) {
             sx={style.pagination} />
         </Stack>
 
+        <Button variant="contained"  sx={{margin: '8px 4px'}}>
+        VIEW WALLET
+      </Button>
+
       </MUIContainer>
     </Container>
   );
