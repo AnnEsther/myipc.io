@@ -17,6 +17,8 @@ import IPCInstance from '../lib/IPCInstance';
 
 import config from '../config';
 
+import Button from "@mui/material/Button";
+
 function getStyle(display) {
 
   return {
