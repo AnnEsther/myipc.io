@@ -158,6 +158,7 @@ export default function IPCWallet(props) {
         <Stack sx={style.header}>
           <T variant="h5" sx={style.caption}>Viewing Wallet</T>
           <T align="center" noWrap={true}>{instance.wallet_address}</T>
+          <Button variant="contained"  sx={{margin: '8px 4px'}}> VIEW DUNGEON </Button>
         </Stack>
 
         <Box sx={style.stack}>{getIPCWalletItem(instance)}</Box>
@@ -171,10 +172,6 @@ export default function IPCWallet(props) {
             showLastButton
             sx={style.pagination} />
         </Stack>
-
-        <Button variant="contained"  sx={{margin: '8px 4px'}}>
-        VIEW WALLET
-      </Button>
 
       </MUIContainer>
     </Container>
