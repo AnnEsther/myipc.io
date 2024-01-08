@@ -362,15 +362,15 @@ export default function IPCProfile(props) {
               onClick={handleClosePopup}
               sx={{
                 position: "absolute",
-                right: 8,
-                top: 8,
+                right: 0,
+                top: 0,
+                padding: 0,
                 color: (theme) => theme.palette.grey[500]
               }}
             >
               <CloseIcon />
             </IconButton>
             <Image style={{height: "512px", width: "512px" }} src={aiImageUrl} />
-            {/* <img style={{height: "512px", width: "512px" }} src={aiImageUrl}/> */}
           </div>
 
         </DialogContent>
