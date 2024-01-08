@@ -354,6 +354,7 @@ export default function IPCProfile(props) {
         maxWidth="sm"
       >
         <DialogContent style={{ overflow: "hidden" }}>
+          <div>
             <IconButton
               aria-label="close"
               onClick={handleClosePopup}
@@ -366,7 +367,8 @@ export default function IPCProfile(props) {
             >
               <CloseIcon />
             </IconButton>
-            <img style={{height: "100%" }} src={aiImageUrl}/>
+            <img style={{height: "512px", width: "512px" }} src={aiImageUrl}/>
+          </div>
 
         </DialogContent>
       </Dialog>
