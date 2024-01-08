@@ -27,6 +27,8 @@ import DialogContent from "@mui/material/DialogContent";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
+import Image from 'material-ui-image';
+
 const IPCContext = IPCInstance.IPCContext;
 
 function IPCSprite(props) {
@@ -367,7 +369,8 @@ export default function IPCProfile(props) {
             >
               <CloseIcon />
             </IconButton>
-            <img style={{height: "512px", width: "512px" }} src={aiImageUrl}/>
+            <Image style={{height: "512px", width: "512px" }} src={aiImageUrl} />
+            {/* <img style={{height: "512px", width: "512px" }} src={aiImageUrl}/> */}
           </div>
 
         </DialogContent>
