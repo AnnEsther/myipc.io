@@ -1,5 +1,5 @@
 var gameConfig = {
-    "public_root" : "http://localhost:80/",
+    "public_root" : "http://myipc.io/",
     //"https://myipc.io/",
     "Asset_Path" : "src/game/assets/",
     "IPC_Speed" : 400,
