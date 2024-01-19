@@ -5,7 +5,7 @@ import logo from "../../assets/sprites/logo.png";
 import gameConfig from "../gameConfig";
 import DungeonData from "../objects/DungeonData";
 import config from "../../../config";
-import mapData from "../../assets/data/map.js";
+import mapData from "./src/phaser/assets/data/map.js";
 
 
 
