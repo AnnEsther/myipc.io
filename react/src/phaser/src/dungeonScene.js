@@ -1,17 +1,17 @@
 import Phaser from "phaser";
-import gameConfig from "../gameConfig";
-import IPC from "../objects/ipc";
-import Level_HUD from "../objects/Level_HUD";
-import Level_Hex from "../objects/Level_Hex";
+import gameConfig from "./gameConfig.js";
+import IPC from "./ipc.js";
+import Level_HUD from "./Level_HUD.js";
+import Level_Hex from "./Level_Hex.js";
 
 
-import loop1 from "../../assets/Sounds/CreepyDungeon.wav";
-import loop2 from "../../assets/Sounds/Dungeon2.wav";
-import graph from "../../assets/sprites/dungeonTiles.png";
-import hole from "../../assets/sprites/hole.png";
-import mapTileData from "../data/MapOutput18x18.js";//"../../assets/data/MapOutput18x18.js"
+import loop1 from "../assets/Sounds/CreepyDungeon.wav";
+import loop2 from "../assets/Sounds/Dungeon2.wav";
+import graph from "../assets/sprites/dungeonTiles.png";
+import hole from "../assets/sprites/hole.png";
+import mapTileData from "./MapOutput18x18.js";//"../../assets/data/MapOutput18x18.js"
 
-const config = require("../../../config.js");
+const config = require("../../config.js");
 
 
 

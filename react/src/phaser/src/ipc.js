@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import gameConfig from "../gameConfig";
+import gameConfig from "./gameConfig";
 
 export default class IPC extends Phaser.Physics.Arcade.Sprite {
     #ipcID;

@@ -3,12 +3,8 @@ import Phaser from 'phaser';
 
 import Container from '../com/Container';
 
-import initScene from './src/scenes/initScene';
-import loadingScene from './src/scenes/loadingScene';
-import landingScene from './src/scenes/landingScene';
-import formScene from './src/scenes/formScene';
-import ipcScene from './src/scenes/ipcScene';
-import dungeonScene from './src/scenes/dungeonScene';
+import landingScene from './src/landingScene';
+import dungeonScene from './src/dungeonScene';
 
 import gameConfig from './src/gameConfig';
 

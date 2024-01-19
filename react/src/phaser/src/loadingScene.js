@@ -1,8 +1,8 @@
 
 import Phaser from "phaser";
-import DungeonData from "../objects/DungeonData"
-import loadAssets from "../../assets/loadAssets";
-import loadAnim from '../../assets/sprites/load.png';
+import DungeonData from "DungeonData.js"
+import loadAssets from "../assets/loadAssets";
+import loadAnim from '../assets/sprites/load.png';
 
 export default class loadingScene extends Phaser.Scene {
     constructor() {

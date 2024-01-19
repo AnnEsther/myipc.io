@@ -1,11 +1,11 @@
 
 import Phaser from "phaser";
-import logoAnim from "../../assets/sprites/logo_4X19.png";
-import logo from "../../assets/sprites/logo.png";
-import gameConfig from "../gameConfig";
-import DungeonData from "../objects/DungeonData";
-import config from "../../../config";
-import mapData from "../data/map.js";
+import logoAnim from "../assets/sprites/logo_4X19.png";
+import logo from "../assets/sprites/logo.png";
+import gameConfig from "./gameConfig.js";
+import DungeonData from "./DungeonData.js";
+import config from "../../config.js";
+import mapData from "./map.js";
 
 
 
