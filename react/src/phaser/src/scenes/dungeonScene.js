@@ -9,7 +9,7 @@ import loop1 from "../../assets/Sounds/CreepyDungeon.wav";
 import loop2 from "../../assets/Sounds/Dungeon2.wav";
 import graph from "../../assets/sprites/dungeonTiles.png";
 import hole from "../../assets/sprites/hole.png";
-import mapTileData from "./src/phaser/assets/data/MapOutput18x18.js";//"../../assets/data/MapOutput18x18.js"
+import mapTileData from "../assets/data/MapOutput18x18.js";//"../../assets/data/MapOutput18x18.js"
 
 const config = require("../../../config.js");
 
