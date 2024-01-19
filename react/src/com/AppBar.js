@@ -13,7 +13,7 @@ import Search from './Search';
 
 import getContext from '../context';
 
-import theme from '../theme.js';
+// import theme from '../theme.js';
 import config from '../config.js';
 
 export function IPCLogo(props) {

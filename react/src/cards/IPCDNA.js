@@ -49,7 +49,7 @@ const _DNAIcon = (props) => {
 
   return (<img
     className={ props.className }
-    src={ config.public_url + "race-symbols/" + filename } />);
+    src={ config.public_url + "race-symbols/" + filename } alt=""/>);
 }
 
 const DNAIcon = styled(_DNAIcon)(

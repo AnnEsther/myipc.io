@@ -15,6 +15,7 @@ import UpdateIcon from '@mui/icons-material/Update';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import SearchIcon from '@mui/icons-material/Search';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
+import DoorBackIcon from '@mui/icons-material/DoorBack';
 
 import IPCWalletUI from '../lib/IPCWalletUI';
 
@@ -168,6 +169,13 @@ function getSearchWalletListener(navigate, wallet_address) {
   return (() => {
     window.scrollTo(0,0);
     navigate(config.PUBLIC_ROOT + wallet_address);
+  });
+}
+
+function getDungeonViewListener(navigate, wallet_address) {
+  return (() => {
+    window.scrollTo(0,0);
+    navigate(config.PUBLIC_ROOT + "dungeon/" + wallet_address);
   });
 }
 
@@ -375,6 +383,15 @@ export default function IPCProfile(props) {
 
         </DialogContent>
       </Dialog>
+
+      <Button
+        variant="contained"
+        endIcon={<DoorBackIcon />}
+        onClick={getDungeonViewListener(instance.navigate, ipc.owner)}
+        sx={{margin: '8px 4px'}}>
+        View Dungeon
+      </Button>
+
       </Box>
     </Box>
     </Container>

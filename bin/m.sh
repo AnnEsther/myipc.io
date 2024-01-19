@@ -131,6 +131,8 @@ cmd_init_web() {
         npm install jsx-runtime &&\
         npm run build &&\
         mv build/index.html build/main.html &&\
+        mv minimaps/ build/minimaps &&\
+        mv animSprites/ build/animSprites &&\
         mkdir build/sprites &&\
         mkdir build/cards
     '

@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
+// import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 import {IPCContext} from '../lib/IPCInstance'
@@ -29,7 +29,7 @@ class t_alert {
 
   show(visible) {
     
-    if (visible == false) {
+    if (visible === false) {
 
       this.type = "error";
       this.title = "";
@@ -61,7 +61,7 @@ export default function Alert(props) {
   alert.visible = visible;
   alert.setVisible = setVisible;
 
-  if (alert.type == "")
+  if (alert.type === "")
     alert.type = "error";
 
   return (

@@ -2,14 +2,12 @@ import React from 'react';
 import { styled } from "@mui/material/styles";
 
 import T from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import SportsMartialArtsIcon from '@mui/icons-material/SportsMartialArts';
 
 import IPCCard from './IPCCard.js';
 
-import IPCLib from '../lib/IPCLib.js';
 import config from '../config';
 
 function _DiceIcon(props)
@@ -19,7 +17,7 @@ function _DiceIcon(props)
   if (props.value > 0 && props.value <= 6)
     filename = config.public_url + "dice/dice-" + props.value + ".svg";
 
-  return (<img className={ props.className } src={ filename } />);
+  return (<img className={ props.className } src={ filename } alt=""/>);
 }
 
 const DiceIcon = styled(_DiceIcon)({
@@ -88,7 +86,7 @@ function AttributeItem(props) {
 }
 
 const _AttributeIcon = (props) => {
-  return <img className={ props.className } src={ config.public_url + "attribute-icons/" + props.src } />;
+  return <img className={ props.className } src={ config.public_url + "attribute-icons/" + props.src } alt=""/>;
 }
 
 const AttributeIcon = styled(_AttributeIcon)({
