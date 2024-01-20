@@ -31,7 +31,7 @@ export default function Game(props) {
             scene: [landingScene, dungeonScene]//, formScene, ipcScene, dungeonScene]
         };
 
-    //     game = new Phaser.Game(phaserConfig);
+        game = new Phaser.Game(phaserConfig);
     }, []);
 
 
