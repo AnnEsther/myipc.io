@@ -5,7 +5,7 @@ import logo from "../assets/sprites/logo.png";
 import gameConfig from "./gameConfig.js";
 import DungeonData from "./DungeonData.js";
 import config from "../../config.js";
-import mapData from "./map.js";
+import mapData from "./map.json";
 
 
 

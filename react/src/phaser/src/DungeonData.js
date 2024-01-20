@@ -1,5 +1,5 @@
 // JavaScript source code
-import mapData from "./map.js";
+import mapData from "./map.json";
 
 export default class DungeonData
 {

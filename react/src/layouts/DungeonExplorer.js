@@ -1,7 +1,5 @@
 import { useParams } from "react-router-dom";
 
-import IPCExplorer from './IPCExplorer';
-import Wallet from './Wallet';
 import Game from '../phaser/game';
 
 
