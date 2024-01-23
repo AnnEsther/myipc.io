@@ -50,12 +50,6 @@ export default class IntroPopup extends Phaser.GameObjects.GameObject {
 
         this.sound = config.scene.sound.add('btnClick');
   
-        // Use the 'once' event listener to remove it after it finishes playing
-        // sound.once('complete', () => {
-        //     sound.destroy();
-        // });
-
-
 
         // Event listener for the close button to hide the popup
         this.closeButton.on('pointerdown', () => {
@@ -66,19 +60,6 @@ export default class IntroPopup extends Phaser.GameObjects.GameObject {
         this.visible = false;
         // Add the popup container to the config.scene
         config.scene.add.existing(this);
-    }
-
-    show() {
-        // Show the popup
-        this.setVisible(true);
-        this.visible = true;
-
-    }
-
-    hide() {
-        // Show the popup
-        this.setVisible(false);
-        this.visible = false;
     }
 
 

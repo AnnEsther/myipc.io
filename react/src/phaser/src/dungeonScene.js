@@ -7,7 +7,6 @@ import Level_Hex from "./Level_Hex.js";
 
 import loop1 from "../assets/Sounds/CreepyDungeon.wav";
 import loop2 from "../assets/Sounds/Dungeon2.wav";
-import btnClick from "../assets/Sounds/btnClick.wav";
 import hitSnd from "../assets/Sounds/hit.wav";
 import lvlUpSnd from "../assets/Sounds/nextLvl.wav";
 
@@ -49,7 +48,7 @@ export default class dungeonScene extends Phaser.Scene {
 
         this.load.audio("hit", hitSnd);
         this.load.audio("lvlUp", lvlUpSnd);
-        this.load.audio("btnClick", btnClick);
+      
 
 
         this.load.image("graph", graph);
@@ -98,7 +97,7 @@ export default class dungeonScene extends Phaser.Scene {
             this.popup = new IntroPopup(popupConfig);
             this.popup.setDepth(200);
             
-            this.popup.show();
+            this.popup.setVisible(true);
             this.firstLoad = false;
         }
         else
@@ -416,7 +415,7 @@ export default class dungeonScene extends Phaser.Scene {
         if (sprite.isNPC == true && sprite.pNPC != null) {
             sprite.pNPC.ChangeDirection();
         }
-        else
+        else if(!this.hitSnd.isPlaying)
         {
             this.hitSnd.play(); 
         }
