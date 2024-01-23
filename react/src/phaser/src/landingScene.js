@@ -6,6 +6,9 @@ import gameConfig from "./gameConfig.js";
 import DungeonData from "./DungeonData.js";
 import config from "../../config.js";
 import mapData from "./map.json";
+import ErrorPopup from "./ErrorPopup.js";
+import btnClick from "../assets/Sounds/btnClick.wav";
+
 
 
 
@@ -23,6 +26,8 @@ export default class landingScene extends Phaser.Scene {
             "endFrame" : 73
         });
         this.load.json("mapData", mapData);
+
+        this.load.audio("btnClick", btnClick);
 
         
 
@@ -63,11 +68,12 @@ export default class landingScene extends Phaser.Scene {
         var background = new Phaser.Display.Color(0, 44, 43);
         this.cameras.main.setBackgroundColor(background);
 
-        
-
-        
-
-
+        var popupConfig = { 
+            scene : this,
+            test : 'blank'};
+        this.errorPopup = new ErrorPopup(popupConfig);
+        this.errorPopup.setDepth(20);
+        this.errorPopup.setVisible(false);
 
         //START REQUEST TO ETHERIUM WALLET
         const req = new XMLHttpRequest();
@@ -80,9 +86,8 @@ export default class landingScene extends Phaser.Scene {
         this.logoAnim.on(Phaser.Animations.Events.ANIMATION_COMPLETE,
             function () {
                 this.logoAnim.anims.stop();
-                 this.cameras.main.fadeOut(1000, 0, 0, 0);
-                 this.animationComplete = true;
-                 this.updateSceneEnd(null);
+                this.animationComplete = true;
+                this.updateSceneEnd(null);
         
                 // this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
                 //     // var data = {
@@ -105,6 +110,7 @@ export default class landingScene extends Phaser.Scene {
         }
         if(this.animationComplete && this.callBackRecieved)
         {
+            this.cameras.main.fadeOut(1000, 0, 0, 0);
             //load next scene
             this.scene.start('dungeon', this.params);
         }
@@ -118,7 +124,8 @@ export default class landingScene extends Phaser.Scene {
         //CHECK IF REPONSE IS JSON
         if(!isValidJSON(this.responseText))
         {
-            console.log("ERROR!")
+            gameConfig.currentScene.errorPopup.setText("Sorry, something went wrong. Please try again later.");
+            gameConfig.currentScene.errorPopup.setVisible(true);
         }
         else
         {
@@ -138,7 +145,8 @@ export default class landingScene extends Phaser.Scene {
             // CHECK IF IPCs EXIST IN WALLET
             if(ownedIPCs.length == 0)
             {
-                console.log("You have 0 IPCs in your wallet!")
+                gameConfig.currentScene.errorPopup.setText("This wallet address doesn't own any NFT Immortal Player Characters. Please make sure you have the correct wallet address or acquire NFTs to access Immortal Player Characters.");
+                gameConfig.currentScene.errorPopup.setVisible(true);
             }
             else
             {
