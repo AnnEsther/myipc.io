@@ -7,9 +7,16 @@ import Level_Hex from "./Level_Hex.js";
 
 import loop1 from "../assets/Sounds/CreepyDungeon.wav";
 import loop2 from "../assets/Sounds/Dungeon2.wav";
+import btnClick from "../assets/Sounds/btnClick.wav";
+import hitSnd from "../assets/Sounds/hit.wav";
+import lvlUpSnd from "../assets/Sounds/nextLvl.wav";
+
+
 import graph from "../assets/sprites/dungeonTiles.png";
 import hole from "../assets/sprites/hole.png";
-import mapTileData from "./MapOutput18x18.json";//"../../assets/data/MapOutput18x18.js"
+import mapTileData from "./MapOutput18x18.json";
+
+import IntroPopup from "./IntroPopup.js";
 
 const config = require("../../config.js");
 
@@ -25,12 +32,13 @@ export default class dungeonScene extends Phaser.Scene {
     //DATA FROM FORM SCENE
     init(data) {
 
-        this.levels = data.levelData;
-        this.currentIndex = data.index;
+        this.levels = data.levels;
+        this.currentIndex = data.currentIndex;
         this.dungeonData = data.dungeonData;
         this.inputData = data;
-        this.ownIPCs = data.ownedIPCs;
-        this.inputData['ipcSelected'] = this.ownIPCs[0];
+        this.ownedIPCs = data.ownedIPCs;
+        this.inputData['ipcSelected'] = this.ownedIPCs[0];
+        this.firstLoad =  data.firstLoad;
 
     }
 
@@ -38,13 +46,24 @@ export default class dungeonScene extends Phaser.Scene {
 
         this.load.audio("loop1", loop1);
         this.load.audio("loop2", loop2);
+
+        this.load.audio("hit", hitSnd);
+        this.load.audio("lvlUp", lvlUpSnd);
+        this.load.audio("btnClick", btnClick);
+
+
         this.load.image("graph", graph);
         this.load.image("hole", hole);
 
+        this.levels.forEach(element => {
+            this.load.image(element, gameConfig.public_root + "minimaps/" + element + ".jpg");
+        });
         
         this.cursors = this.input.keyboard.createCursorKeys();
 
         this.levelData = mapTileData;
+
+       
     }
     create() {
 
@@ -70,39 +89,24 @@ export default class dungeonScene extends Phaser.Scene {
 
         this.generateUI();
 
-
-        this.input.on('pointerup', function (pointer) {
-            var tile = this.dynamicMap.getTileAtWorldXY(pointer.worldX, pointer.worldY, true, this.cameras.main, this.layer0);
-            if(tile.index == 0)
-            {
-                console.log(pointer.worldX, pointer.worldY, this.ipc.x, this.ipc.y);
-                // this.ipc.moveTo(pointer.worldX, pointer.worldY);
-
-                this.tweens.addCounter({
-                    from: this.ipc.x,
-                    to: pointer.worldX,
-                    duration: 1000,
-                    ease: 'linear',
-                    onUpdate: tween =>
-                    {
-                        this.ipc.x = tween.getValue();
-                    }
-                });
-                this.tweens.addCounter({
-                    from: this.ipc.y,
-                    to: pointer.worldY,
-                    duration: 1000,
-                    ease: 'linear',
-                    onUpdate: tween =>
-                    {
-                        this.ipc.y = tween.getValue();
-                    }
-                });
-            }
+        if(this.firstLoad)
+        {
+            var popupConfig = { 
+                scene : this,
+                x : 400,
+                y : 300};
+            this.popup = new IntroPopup(popupConfig);
+            this.popup.setDepth(200);
             
-          }, this);
-        
-        
+            this.popup.show();
+            this.firstLoad = false;
+        }
+        else
+        {
+            this.popup.visible = false;
+        }
+       
+
        
     }
 
@@ -144,19 +148,19 @@ export default class dungeonScene extends Phaser.Scene {
 
         this.levelHUDSystem = new Level_HUD(this, this.levels, width * 0.2 * 0.95);
         this.levelHUDSystem.setScrollFactor(0,0);
-        this.levelHUDSystem.setDepth(100);
+        this.levelHUDSystem.setDepth(1);
 
         this.levelHexDisplay = new Level_Hex(this, this.levels, width * 0.8);
         this.levelHexDisplay.setScrollFactor(0,0);
-        this.levelHexDisplay.setDepth(100);
+        this.levelHexDisplay.setDepth(10);
     }
 
     generateNPC() {
         this.npc = [];
 
-        for(var i = 0; i < this.ownIPCs.length && i < 10; i++)
+        for(var i = 0; i < this.ownedIPCs.length && i < 10; i++)
         {
-            if(this.ownIPCs[i] == this.inputData['ipcSelected'])
+            if(this.ownedIPCs[i] == this.inputData['ipcSelected'])
             {
                 continue;
             }
@@ -164,7 +168,7 @@ export default class dungeonScene extends Phaser.Scene {
             var tempNpc = new IPC(this, 
                 (pos.x * gameConfig.Tile_Size) + (gameConfig.Tile_Size/2),
                 (pos.y * gameConfig.Tile_Size) + (gameConfig.Tile_Size/2),
-                this.ownIPCs[i], this.npcCallBack.bind(this));
+                this.ownedIPCs[i], this.npcCallBack.bind(this));
             tempNpc.setScale(0.5);
             this.npc.push(tempNpc);
             this.layer0.setTileIndexCallback(1, this.hitwall, this);
@@ -244,6 +248,12 @@ export default class dungeonScene extends Phaser.Scene {
             return;
         }
 
+        if(this.popup.visible)
+        {
+            return;
+        }
+
+
         this.ipc.update();
         
 
@@ -297,6 +307,7 @@ export default class dungeonScene extends Phaser.Scene {
             this.ipcInHole = true;
             this.cameras.main.fadeOut(500);
             
+            this.levelUpSnd.play();
             
             this.time.addEvent(
                 {
@@ -371,6 +382,10 @@ export default class dungeonScene extends Phaser.Scene {
 
     updateMusic() {
 
+        this.hitSnd = this.sound.add('hit').setLoop(false);
+        this.levelUpSnd = this.sound.add('lvlUp').setLoop(false);
+
+
         if (this.currentIndex % 2 == 0) 
         {
             this.loop = this.sound.add('loop1');
@@ -380,7 +395,7 @@ export default class dungeonScene extends Phaser.Scene {
             this.loop = this.sound.add('loop2');
         }
         this.loop.setLoop(true);
-        this.loop.setVolume(0.5);
+        // this.loop.setVolume(0.5);
         this.loop.play();
     }
 
@@ -400,6 +415,10 @@ export default class dungeonScene extends Phaser.Scene {
     {
         if (sprite.isNPC == true && sprite.pNPC != null) {
             sprite.pNPC.ChangeDirection();
+        }
+        else
+        {
+            this.hitSnd.play(); 
         }
            
         return false;
@@ -448,19 +467,20 @@ export default class dungeonScene extends Phaser.Scene {
         }
 
         var data = {
-            ownedIPCs : this.ownIPCs,
-            levelData: this.levels,
+            ownedIPCs : this.ownedIPCs,
+            levels: this.levels,
             dungeonAddress : this.dungeonAddress,
-            index: this.currentIndex,
+            currentIndex: this.currentIndex,
             dungeonData: this.dungeonData,
             loadScene: 'dungeon',
-            ipcSelected: this.inputData['ipcSelected']
+            ipcSelected: this.inputData['ipcSelected'],
+            firstLoad : this.firstLoad
         };
 
         this.loop.stop();
         //this.updateMusic();
 
-        this.scene.start('loadingScene', data);
+        this.scene.start('dungeon', data);
 
     }
 

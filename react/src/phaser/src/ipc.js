@@ -156,7 +156,7 @@ export default class IPC extends Phaser.Physics.Arcade.Sprite {
                     //IPC attributes
                     ipc.#setAttributes(jsonObj);
 
-                    scene.load.spritesheet(ipc.getID(), gameConfig.public_root + 'sprites/' + ipc.getID()+'.gif', { frameWidth: 320, frameHight: 320 });
+                    scene.load.spritesheet(ipc.getID(), gameConfig.public_root + 'animSprites/' + ipc.getID()+'.png', { frameWidth: 320, frameHight: 320 });
                     scene.load.once('complete', () => {
                         ipc._callback(ipc);
                         if (ipc.getHandedness() == "Left") {
@@ -166,13 +166,18 @@ export default class IPC extends Phaser.Physics.Arcade.Sprite {
                             ipc.setFlipX(false)
                         }
                         ipc.setTexture(ipc.getID(), 0);
-                        scene.anims.create({
-                            key: ipc.getID() + 'running',
-                            frameRate: 10,
-                            frames: scene.anims.generateFrameNumbers(ipc.getID(), { starts: 7, ends: 0 }),
-                            repeat: -1
-                        });
-                        ipc.playReverse(ipc.getID()+'running');
+                        //check if IPC exists
+                        if(!scene.anims.exists(ipc.getID()+"anim"))
+                        {
+                            scene.anims.create({
+                                key: ipc.getID()+"anim",
+                                frameRate: 10,
+                                frames: scene.anims.generateFrameNumbers(ipc.getID(), { starts: 7, ends: 0 }),
+                                repeat: -1
+                            });
+                        }
+                        
+                        ipc.playReverse(ipc.getID()+"anim");
 
                     });
 

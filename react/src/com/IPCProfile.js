@@ -175,7 +175,7 @@ function getSearchWalletListener(navigate, wallet_address) {
 function getDungeonViewListener(navigate, wallet_address) {
   return (() => {
     window.scrollTo(0,0);
-    navigate(config.PUBLIC_ROOT + "dungeon/" + wallet_address);
+    navigate(config.PUBLIC_ROOT + "dungeon=" + wallet_address);
   });
 }
 

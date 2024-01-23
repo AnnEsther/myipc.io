@@ -1,14 +1,16 @@
 import Phaser from "phaser";
+
 export default class Level_Hex extends Phaser.GameObjects.GameObject {
     constructor(scene, levelsData, width)
 	{
         super(scene, "LevelHex");
 
+
+
         this.scene = scene;
         this.levelData = levelsData;
         this.maxWidth = width;
 
-        console.log( this.levelData );
 
         var colors = {
             background : 0x799cbc, //0x385DBB, //0x81828C, // 0x9896d3,
@@ -162,7 +164,6 @@ export default class Level_Hex extends Phaser.GameObjects.GameObject {
         var widthPerCharacter = widthPerText/2;
         var currentWidthperChar = this.hexText[0].displayWidth/2;
         var ratio = widthPerText/this.hexText[0].displayWidth;
-        console.log(ratio);
 
 
         //set positions

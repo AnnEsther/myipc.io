@@ -9,6 +9,7 @@ import mapData from "./map.json";
 
 
 
+
 export default class landingScene extends Phaser.Scene {
     constructor() {
         super('landingScene');
@@ -23,8 +24,14 @@ export default class landingScene extends Phaser.Scene {
         });
         this.load.json("mapData", mapData);
 
+        
+
     }
     create() {
+
+        this.animationComplete = false;
+        this.callBackRecieved = false;
+
         this.cameras.main.fadeIn(500, 0, 0, 0);
 
         this.centerX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
@@ -40,15 +47,27 @@ export default class landingScene extends Phaser.Scene {
         this.logoAnim = this.add.sprite(this.centerX, this.centerY, 'logoAnim').play('playLogoAnim');
         var logo = this.add.image(this.centerX, this.centerY, 'logo');
 
-        this.logoAnim.y = this.centerY - (this.logoAnim.height * 0.25);
-        logo.y = this.logoAnim.y + (this.logoAnim.height * 0.5) + (logo.height * 0.5);
+        var desiredHeight = (this.cameras.main.height * 0.25);
+        var logoRatio = desiredHeight / logo.height;
+        logo.setScale(logoRatio);
+
+        desiredHeight  = (this.cameras.main.height * 0.5);
+        var logoAnimRatio = desiredHeight / this.logoAnim.height;
+        this.logoAnim.setScale(logoAnimRatio);
+
+        this.logoAnim.y = this.centerY - (this.logoAnim.height * 0.25 * logoAnimRatio);
+        logo.y = this.logoAnim.y + (this.logoAnim.height * 0.5 * logoAnimRatio) + (logo.height * 0.5 * logoRatio);
+
+        
 
         var background = new Phaser.Display.Color(0, 44, 43);
         this.cameras.main.setBackgroundColor(background);
 
-        var ratio = this.cameras.main.width / logo.width;
+        
 
-        logo.setScale(ratio);
+        
+
+
 
         //START REQUEST TO ETHERIUM WALLET
         const req = new XMLHttpRequest();
@@ -58,24 +77,40 @@ export default class landingScene extends Phaser.Scene {
         req.send();
     
 
-        // this.logoAnim.on(Phaser.Animations.Events.ANIMATION_COMPLETE,
-        //     function () {
-        //         //this.logoAnim.anims.stop();
-        //         this.cameras.main.fadeOut(100, 0, 0, 0);
+        this.logoAnim.on(Phaser.Animations.Events.ANIMATION_COMPLETE,
+            function () {
+                this.logoAnim.anims.stop();
+                 this.cameras.main.fadeOut(1000, 0, 0, 0);
+                 this.animationComplete = true;
+                 this.updateSceneEnd(null);
         
-        //         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-        //             // var data = {
-        //             //     "loadScene" : "form"
-        //             // };
-        //             // this.scene.start('dungeon', null);
-        //             //this.scene.start('loading');
-        //             //this.scene.start('testing', { i : 0});
-        //         });
-        // }, this);
+                // this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                //     // var data = {
+                //     //     "loadScene" : "form"
+                //     // };
+                //     // this.scene.start('dungeon', null);
+                //     //this.scene.start('loading');
+                //     //this.scene.start('testing', { i : 0});
+                //     gameConfig.currentScene = this;
+                // });
+        }, this);
 
     }
 
-    reqListener() 
+    updateSceneEnd(params)
+    {
+        if(params != null)
+        {
+            this.params = params;
+        }
+        if(this.animationComplete && this.callBackRecieved)
+        {
+            //load next scene
+            this.scene.start('dungeon', this.params);
+        }
+    }
+
+    async reqListener() 
     {
         var result;
         var params;
@@ -109,28 +144,30 @@ export default class landingScene extends Phaser.Scene {
             {
                 params = {
                     dungeonAddress: gameConfig.currentAddress.toUpperCase(),
-                    levelData: gameConfig.currentAddress.toUpperCase().match(/.{1,2}/g),
-                    "ownedIPCs" : ownedIPCs,
-                    index: 0
+                    levels: gameConfig.currentAddress.toUpperCase().match(/.{1,2}/g),
+                    ownedIPCs : ownedIPCs,
+                    currentIndex: 0,
+                    firstLoad: true
                 };  
         
                 //TO REMOVE 0x
-                params.levelData.shift();
+                params.levels.shift();
                 
-                params["dungeonData"] = new DungeonData(this, params.levelData);
-                //gameConfig.scene.scene.cameras.main.fadeOut(500, 0, 0, 0);
+                params["dungeonData"] = new DungeonData(this, params.levels);
                 
-                //gameConfig.scene.start('loadingScene', params);
-                
-        
-                //gameConfig.currentAddress = "";
-        
-                gameConfig.currentScene.scene.start('dungeon', params);
+                gameConfig.currentScene.callBackRecieved = true;
+                gameConfig.currentScene.updateSceneEnd(params);
             }
         }
       }
 
+    
+
 }
+
+function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+  }
 
 const isValidJSON = obj => {
     try {

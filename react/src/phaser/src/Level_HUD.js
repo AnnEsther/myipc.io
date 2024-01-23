@@ -1,4 +1,6 @@
 import Phaser from "phaser";
+import gameConfig from "./gameConfig.js";
+
 export default class Level_HUD extends Phaser.GameObjects.GameObject {
     constructor(scene, levelsData, width)
 	{
@@ -151,7 +153,8 @@ export default class Level_HUD extends Phaser.GameObjects.GameObject {
         this.bottomText.setPosition( this.baseRect.x,(this.minimap.y + (this.minimap.height * this.ratio * 0.5) + (this.bottomText.height * 0.7) + (borderWidth)));
         this.bottomText.setOrigin(0.5, 0.5);
 
-        this.innerShadow_MiniMap.setPosition(this.minimap.x, (this.minimap.y + (this.minimap.height  * this.ratio) - (this.innerShadow_MiniMap.height)));
+        this.innerShadow_MiniMap.setPosition(this.minimap.x, (this.minimap.y + (this.minimap.height  * this.ratio * 0.5) ));// + (this.minimap.height  * this.ratio) +(borderWidth * 2)));
+        this.innerShadow_MiniMap.setOrigin(0.5, 0.5);
         
         //top-left
         this.cornerShadow_MiniMap_topLeft.setPosition(
@@ -235,12 +238,6 @@ export default class Level_HUD extends Phaser.GameObjects.GameObject {
         this.topText.setDepth(zIndex);
         this.bottomText.setDepth(zIndex);
         this.innerShadow.setDepth(zIndex);
-       
-
-
-        zIndex++;
-
-        this.innerShadow_MiniMap.setDepth(zIndex);
 
         zIndex++;
 
@@ -253,6 +250,10 @@ export default class Level_HUD extends Phaser.GameObjects.GameObject {
         this.cornerShadow_bottomLeft.setDepth(zIndex);
         this.cornerShadow_topRight.setDepth(zIndex);
         this.cornerShadow_bottomRight.setDepth(zIndex);
+
+        zIndex++;
+
+        this.innerShadow_MiniMap.setDepth(zIndex);
         
     }
 

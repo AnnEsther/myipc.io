@@ -22,7 +22,6 @@ export default class DungeonData
             i++;
         }
 
-        console.log(this.levels);
     }
 
     createMap(mapID, imgMap) {

@@ -30,8 +30,7 @@ function AppRoot(props) {
         <Route path={config.BACKEND_ROOT} element={<DefaultRoute />}>
           <Route path=":value" element={<DefaultRoute />} />
         </Route>
-        <Route path={config.BACKEND_ROOT + 'dungeon'} element={<DungeonExplorer />}>
-          <Route path=":value" element={<DungeonExplorer />} />
+        <Route path={config.BACKEND_ROOT + 'dungeon=:value'} element={<DungeonExplorer />}>
         </Route>
         <Route path={config.BACKEND_ROOT + 'qrcode'} element={<QRCode />} />
         <Route path={config.BACKEND_ROOT + 'edeccodolphin'} element={<Terminal />} />
